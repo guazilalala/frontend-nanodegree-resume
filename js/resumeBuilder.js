@@ -13,9 +13,31 @@ var bio = {
     skills: ['C#', 'CSS', 'JavaScript', 'HTML'],
     biopic: "images/fry.jpg",
     display: function () {
+        var formatName = HTMLheaderName.replace('%data%', bio.name);
+        var formatRole = HTMLheaderRole.replace('%data%', bio.role);
+        $("#header").prepend(formatName + formatRole);
+        
+        var formattedMobile = HTMLmobile.replace('%data%', bio.contacts.mobile);
+        var formattedEmail = HTMLemail.replace('%data%', bio.contacts.email);
+        var formattedTwitter = HTMLtwitter.replace('%data%', bio.contacts.twitter);
+        var formattedGithub = HTMLgithub.replace('%data%', bio.contacts.github);
+        var formattedLocation = HTMLlocation.replace('%data%', bio.contacts.location);
+        var formattedCompents = formattedMobile + formattedEmail + formattedTwitter + formattedGithub + formattedLocation
+        
+        
+        $("#topContacts,#footerContacts").append(formattedCompents);
+        
+        $("#header").append(HTMLbioPic.replace('%data%', bio.biopic));
+        $("#header").append(HTMLwelcomeMsg.replace('%data%', bio.welcomeMessage));
+        $("#header").append(HTMLskillsStart);
+        bio.skills.forEach(element => {
+            $("#header").append(HTMLskills.replace('%data%', element));
+        })
 
     }
 }
+
+bio.display();
 
 var education = {
     schools: [{
@@ -23,7 +45,7 @@ var education = {
         location: "广东广州",
         degree: "中专",
         majors: ["计算机应用与辅助设计"],
-        dates: "2000.9" + " - " + "2003.7",
+        dates: "2000.9 - 2003.7",
         url: "http://www.gzgj.net/",
     },
     {
@@ -31,20 +53,20 @@ var education = {
         location: "广东广州",
         degree: "大专",
         majors: ["工商管理"],
-        dates: "2012.3" + " - " + "2015.1",
+        dates: "2012.3 - 2015.1",
         url: "http://www.gdou.edu.cn/",
     }
     ],
     onlineCourses: [{
         title: "RHCE7",
         school: "51CTO",
-        dates: "2014.12" + " - " + "2015.6",
+        dates: "2014.12 - 2015.6",
         url: "http://www.51cto.com"
     },
     {
         title: "前端入门",
         school: "优达学城",
-        dates: "2017.8" + " - " + "2017.11",
+        dates: "2017.8 - 2017.11",
         url: "https://cn.udacity.com/"
     }
     ],
@@ -52,7 +74,7 @@ var education = {
         $("#education").append(HTMLschoolStart);
         
         education.schools.forEach(function(schools){
-            var formattedName = HTMLschoolName.replace('%data%', schools.name);
+            var formattedName = HTMLschoolName.replace("#",schools.url).replace('%data%', schools.name);
             var formattedDegree = HTMLschoolDegree.replace('%data%', schools.degree);
             var formattedNameDegree = formattedName + formattedDegree;
             $(".education-entry:last").append(formattedNameDegree);
@@ -64,13 +86,12 @@ var education = {
             $(".education-entry:last").append(formattedLocation);
             
             var formattedMajor = HTMLschoolMajor.replace('%data%',schools.majors);
-            $(".education-entry:last").append(formattedMajor);           
-        })
+            $(".education-entry:last").append(formattedMajor);                   })
 
         $("#education").append(HTMLonlineClasses);
         
         education.onlineCourses.forEach(function(onlineCourses){
-            var formatOnlineTitle = HTMLonlineTitle.replace('%data%', onlineCourses.title);        
+            var formatOnlineTitle = HTMLonlineTitle.replace("#",onlineCourses.url).replace('%data%', onlineCourses.title);        
             var formatOnlineSchool = HTMLonlineSchool.replace('%data%', onlineCourses.school);
             var formatOnlineTitleSchool = formatOnlineTitle + formatOnlineSchool;
             $(".education-entry:last").append(formatOnlineTitleSchool);
@@ -78,7 +99,7 @@ var education = {
             var formatOnlineDates = HTMLonlineDates.replace('%data%', onlineCourses.dates);
             $(".education-entry:last").append(formatOnlineDates);
             
-            var formatOnlineURL = HTMLonlineURL.replace('%data%', onlineCourses.url);
+            var formatOnlineURL = HTMLonlineURL.replace("#",onlineCourses.url).replace('%data%', onlineCourses.url);
             $(".education-entry:last").append(formatOnlineURL);
             
         })
@@ -95,7 +116,7 @@ var work = {
         employer: "广州华银医学检验中心有限公司",
         title: "Developer",
         location: "广州",
-        dates: "2010.5" + " - " + "2017.5",
+        dates: "2010.5 - 2017.5",
         description:"负责研发公司应用软件的模块设计、开发和交付。"
     }],
     display: function () {
@@ -154,27 +175,7 @@ var projects = {
 
 projects.display();
 
-var formatName = HTMLheaderName.replace('%data%', bio.name);
-var formatRole = HTMLheaderRole.replace('%data%', bio.role);
-$("#header").prepend(formatName + formatRole);
 
-var formattedMobile = HTMLmobile.replace('%data%', bio.contacts.mobile);
-var formattedEmail = HTMLemail.replace('%data%', bio.contacts.email);
-var formattedTwitter = HTMLtwitter.replace('%data%', bio.contacts.twitter);
-var formattedGithub = HTMLgithub.replace('%data%', bio.contacts.github);
-var formattedLocation = HTMLlocation.replace('%data%', bio.contacts.location);
-var formattedCompents = formattedMobile + formattedEmail + formattedTwitter + formattedGithub + formattedLocation
-
-
-$("#topContacts").append(formattedCompents);
-$("#footerContacts").append(formattedCompents);
-
-$("#header").append(HTMLbioPic.replace('%data%', bio.biopic));
-$("#header").append(HTMLwelcomeMsg.replace('%data%', bio.welcomeMessage));
-$("#header").append(HTMLskillsStart);
-bio.skills.forEach(element => {
-    $("#header").append(HTMLskills.replace('%data%', element));
-})
 
 
 
